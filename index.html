@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DesignMuse - The agent who animates your ideas</title>
+  <meta property="og:title" content="DesignMuse">
+  <meta property="og:description" content="The agent who animates your ideas">
+  <meta property="og:image" content="assets/img/social-media-image.png">
+  
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #7C3AED;
+      --gradient-start: #FF5757;
+      --gradient-end: #8C52FF;
+      --dark-bg: #111827;
+      --text-light: #F9FAFB;
+      --text-secondary: #9CA3AF;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .logo-icon {
+      width: 2rem;
+      height: 2rem;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    nav a:hover {
+      color: var(--primary-color);
+    }
+    
+    .auth-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .btn {
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--text-light);
+      color: var(--text-light);
+    }
+    
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      border: none;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+    
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 5rem 0;
+    }
+    
+    .hero-icon {
+      width: 8rem;
+      height: 8rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .heart-icon {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .hero p {
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .search-box {
+      width: 100%;
+      max-width: 800px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      position: relative;
+    }
+    
+    .search-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.25rem;
+      outline: none;
+      padding: 0.5rem;
+    }
+    
+    .search-input::placeholder {
+      color: var(--text-secondary);
+    }
+    
+    .search-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    
+    .search-actions {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .example-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      opacity: 0;
+    }
+    
+    .example-btn {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--text-light);
+      padding: 0.75rem 1.5rem;
+      border-radius: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .example-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .example-btn svg {
+      width: 1rem;
+      height: 1rem;
+    }
+    
+    .animated-app {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 400px;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 1rem;
+      overflow: hidden;
+      margin-top: 4rem;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .animated-element {
+      position: absolute;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      border-radius: 50%;
+      opacity: 0.7;
+    }
+    
+    .element-1 {
+      width: 100px;
+      height: 100px;
+      top: 50px;
+      left: 100px;
+    }
+    
+    .element-2 {
+      width: 70px;
+      height: 70px;
+      bottom: 80px;
+      right: 120px;
+    }
+    
+    .element-3 {
+      width: 50px;
+      height: 50px;
+      bottom: 150px;
+      left: 200px;
+    }
+    
+    .particles-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    
+    .particle {
+      position: absolute;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      border-radius: 50%;
+      opacity: 0.3;
+    }
+    
+    .animation-ball {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+    
+    .submit-btn {
+      position: absolute;
+      right: 1rem;
+      top: 0.5rem;
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .submit-btn:hover {
+      opacity: 0.9;
+    }
+    
+    .animation-status {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="particles-container" id="particles-container"></div>
+  
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="logo-icon"></div>
+        designmuse
+      </div>
+      <nav>
+        <a href="#">Support</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+        <a href="#">Launched</a>
+        <a href="#">Changelog</a>
+        <a href="#">Learn</a>
+      </nav>
+      <div class="auth-buttons">
+        <button class="btn btn-outline">Sign in</button>
+        <button class="btn btn-primary">Sign up</button>
+      </div>
+    </header>
+    
+    <main>
+      <section class="hero">
+        <div class="hero-icon">
+          <div class="heart-icon" id="heart-icon"></div>
+        </div>
+        
+        <h1 id="hero-title">Idea to design in seconds.</h1>
+        <p id="hero-subtitle">DesignMuse is your superhuman design assistant. Start for free today.</p>
+        
+        <div class="search-box" id="search-box">
+          <input type="text" class="search-input" id="animation-input" placeholder="Type an animation command (e.g., 'bounce the ball')">
+          <button class="submit-btn" id="submit-animation">Animate</button>
+          <div class="search-controls">
+            <div class="search-actions">
+              <button class="btn btn-outline">Attach</button>
+              <button class="btn btn-outline">Import</button>
+            </div>
+            <button class="btn btn-outline">Public</button>
+          </div>
+        </div>
+        
+        <div class="animation-status" id="animation-status">Type an animation command and click Animate</div>
+        
+        <div class="example-buttons" id="example-buttons">
+          <button class="example-btn" data-animation="bounce the ball">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+            Bounce the ball
+          </button>
+          <button class="example-btn" data-animation="spin the ball">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+            Spin the ball
+          </button>
+          <button class="example-btn" data-animation="explode the ball">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+            Explode the ball
+          </button>
+          <button class="example-btn" data-animation="change color">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+            Change color
+          </button>
+        </div>
+        
+        <div class="animated-app" id="animated-app">
+          <div class="animation-ball" id="animation-ball"></div>
+          <div class="animated-element element-1" id="element-1"></div>
+          <div class="animated-element element-2" id="element-2"></div>
+          <div class="animated-element element-3" id="element-3"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="lib/anime.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Create background particles
+      const particlesContainer = document.getElementById('particles-container');
+      const particleCount = 20;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size between 5px and 20px
+        const size = Math.random() * 15 + 5;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        particlesContainer.appendChild(particle);
+      }
+      
+      // Animate particles
+      const particles = document.querySelectorAll('.particle');
+      particles.forEach(particle => {
+        anime({
+          targets: particle,
+          translateX: () => anime.random(-50, 50) + 'vw',
+          translateY: () => anime.random(-50, 50) + 'vh',
+          scale: () => anime.random(0.5, 1.5),
+          opacity: [0.2, 0.4, 0.2],
+          easing: 'easeInOutQuad',
+          duration: () => anime.random(15000, 30000),
+          delay: () => anime.random(0, 5000),
+          loop: true,
+          direction: 'alternate'
+        });
+      });
+      
+      // Heart icon animation
+      anime({
+        targets: '#heart-icon',
+        scale: [0.9, 1.1],
+        opacity: [0.8, 1],
+        easing: 'easeInOutQuad',
+        duration: 1500,
+        loop: true,
+        direction: 'alternate'
+      });
+      
+      // Hero text animation
+      anime({
+        targets: '#hero-title',
+        translateY: [20, 0],
+        opacity: [0, 1],
+        easing: 'easeOutExpo',
+        duration: 1000,
+        delay: 300
+      });
+      
+      anime({
+        targets: '#hero-subtitle',
+        translateY: [20, 0],
+        opacity: [0, 1],
+        easing: 'easeOutExpo',
+        duration: 1000,
+        delay: 500
+      });
+      
+      // Search box animation
+      anime({
+        targets: '#search-box',
+        translateY: [20, 0],
+        opacity: [0, 1],
+        easing: 'easeOutExpo',
+        duration: 1000,
+        delay: 700
+      });
+      
+      // Example buttons animation
+      anime({
+        targets: '#example-buttons',
+        opacity: [0, 1],
+        easing: 'easeOutExpo',
+        duration: 1000,
+        delay: 900
+      });
+      
+      // Animated app container
+      anime({
+        targets: '#animated-app',
+        translateY: [20, 0],
+        opacity: [0, 1],
+        easing: 'easeOutExpo',
+        duration: 1000,
+        delay: 1100
+      });
+      
+      // Animation status
+      anime({
+        targets: '#animation-status',
+        opacity: [0, 1],
+        easing: 'easeOutExpo',
+        duration: 1000,
+        delay: 1300
+      });
+      
+      // Animated elements inside the app container
+      anime({
+        targets: '#element-1',
+        translateX: anime.stagger([-30, 30]),
+        translateY: anime.stagger([-30, 30]),
+        scale: [0.9, 1.1],
+        easing: 'easeInOutQuad',
+        duration: 4000,
+        loop: true,
+        direction: 'alternate'
+      });
+      
+      anime({
+        targets: '#element-2',
+        translateX: anime.stagger([-40, 40]),
+        translateY: anime.stagger([-20, 20]),
+        scale: [0.8, 1.2],
+        easing: 'easeInOutQuad',
+        duration: 5000,
+        loop: true,
+        direction: 'alternate'
+      });
+      
+      anime({
+        targets: '#element-3',
+        translateX: anime.stagger([-20, 20]),
+        translateY: anime.stagger([-40, 40]),
+        scale: [0.7, 1.3],
+        easing: 'easeInOutQuad',
+        duration: 6000,
+        loop: true,
+        direction: 'alternate'
+      });
+      
+      // Add hover effects to buttons
+      const buttons = document.querySelectorAll('.btn, .example-btn');
+      buttons.forEach(button => {
+        button.addEventListener('mouseenter', () => {
+          anime({
+            targets: button,
+            scale: 1.05,
+            duration: 300,
+            easing: 'easeOutQuad'
+          });
+        });
+        
+        button.addEventListener('mouseleave', () => {
+          anime({
+            targets: button,
+            scale: 1,
+            duration: 300,
+            easing: 'easeOutQuad'
+          });
+        });
+      });
+      
+      // Animation ball
+      let currentAnimation = null;
+      
+      // Function to handle animation based on user input
+      function animateBall(command) {
+        // Stop any current animation
+        if (currentAnimation) {
+          currentAnimation.pause();
+        }
+        
+        const ball = document.getElementById('animation-ball');
+        const statusEl = document.getElementById('animation-status');
+        
+        // Reset ball position and properties
+        anime.set(ball, {
+          translateX: 0,
+          translateY: 0,
+          rotate: 0,
+          scale: 1,
+          opacity: 1,
+          backgroundColor: 'rgba(0, 0, 0, 0)'
+        });
+        
+        // Convert command to lowercase for easier matching
+        const cmd = command.toLowerCase();
+        
+        // Update status
+        statusEl.textContent = `Animating: ${command}`;
+        
+        // Handle different animation commands
+        if (cmd.includes('bounce')) {
+          currentAnimation = anime({
+            targets: ball,
+            translateY: [
+              { value: -100, duration: 500, easing: 'easeOutQuad' },
+              { value: 0, duration: 500, easing: 'easeInQuad' },
+              { value: -50, duration: 400, easing: 'easeOutQuad' },
+              { value: 0, duration: 400, easing: 'easeInQuad' },
+              { value: -25, duration: 300, easing: 'easeOutQuad' },
+              { value: 0, duration: 300, easing: 'easeInQuad' }
+            ],
+            loop: true
+          });
+        } else if (cmd.includes('spin')) {
+          currentAnimation = anime({
+            targets: ball,
+            rotate: '360deg',
+            easing: 'linear',
+            duration: 1000,
+            loop: true
+          });
+        } else if (cmd.includes('explode')) {
+          currentAnimation = anime({
+            targets: ball,
+            scale: [1, 3],
+            opacity: [1, 0],
+            easing: 'easeOutExpo',
+            duration: 1000,
+            complete: function() {
+              // Reset after explosion
+              setTimeout(() => {
+                anime.set(ball, {
+                  scale: 1,
+                  opacity: 1
+                });
+                
+                // Restart the animation
+                currentAnimation.restart();
+              }, 500);
+            }
+          });
+        } else if (cmd.includes('color')) {
+          currentAnimation = anime({
+            targets: ball,
+            backgroundColor: [
+              { value: '#FF5757', duration: 500 },
+              { value: '#8C52FF', duration: 500 },
+              { value: '#52FFCB', duration: 500 },
+              { value: '#FFCB52', duration: 500 }
+            ],
+            easing: 'linear',
+            loop: true
+          });
+        } else if (cmd.includes('shake')) {
+          currentAnimation = anime({
+            targets: ball,
+            translateX: [
+              { value: -30, duration: 100, easing: 'easeInOutSine' },
+              { value: 30, duration: 100, easing: 'easeInOutSine' },
+              { value: -15, duration: 100, easing: 'easeInOutSine' },
+              { value: 15, duration: 100, easing: 'easeInOutSine' },
+              { value: -8, duration: 100, easing: 'easeInOutSine' },
+              { value: 8, duration: 100, easing: 'easeInOutSine' },
+              { value: 0, duration: 100, easing: 'easeInOutSine' }
+            ],
+            loop: true,
+            delay: 500
+          });
+        } else if (cmd.includes('pulse')) {
+          currentAnimation = anime({
+            targets: ball,
+            scale: [1, 1.2, 1],
+            easing: 'easeInOutSine',
+            duration: 1000,
+            loop: true
+          });
+        } else if (cmd.includes('fade')) {
+          currentAnimation = anime({
+            targets: ball,
+            opacity: [1, 0.2, 1],
+            easing: 'easeInOutSine',
+            duration: 1500,
+            loop: true
+          });
+        } else if (cmd.includes('move') && cmd.includes('left')) {
+          currentAnimation = anime({
+            targets: ball,
+            translateX: -150,
+            easing: 'easeInOutQuad',
+            duration: 1000,
+            loop: true,
+            direction: 'alternate'
+          });
+        } else if (cmd.includes('move') && cmd.includes('right')) {
+          currentAnimation = anime({
+            targets: ball,
+            translateX: 150,
+            easing: 'easeInOutQuad',
+            duration: 1000,
+            loop: true,
+            direction: 'alternate'
+          });
+        } else if (cmd.includes('move') && cmd.includes('up')) {
+          currentAnimation = anime({
+            targets: ball,
+            translateY: -150,
+            easing: 'easeInOutQuad',
+            duration: 1000,
+            loop: true,
+            direction: 'alternate'
+          });
+        } else if (cmd.includes('move') && cmd.includes('down')) {
+          currentAnimation = anime({
+            targets: ball,
+            translateY: 150,
+            easing: 'easeInOutQuad',
+            duration: 1000,
+            loop: true,
+            direction: 'alternate'
+          });
+        } else if (cmd.includes('zigzag')) {
+          currentAnimation = anime({
+            targets: ball,
+            translateX: [
+              { value: 100, duration: 500 },
+              { value: -100, duration: 500 },
+              { value: 50, duration: 500 },
+              { value: -50, duration: 500 },
+              { value: 0, duration: 500 }
+            ],
+            translateY: [
+              { value: -50, duration: 500 },
+              { value: 50, duration: 500 },
+              { value: -25, duration: 500 },
+              { value: 25, duration: 500 },
+              { value: 0, duration: 500 }
+            ],
+            easing: 'easeInOutSine',
+            loop: true
+          });
+        } else if (cmd.includes('path')) {
+          // Create a circular path
+          currentAnimation = anime({
+            targets: ball,
+            translateX: [
+              { value: 100, duration: 1000 },
+              { value: 0, duration: 1000 },
+              { value: -100, duration: 1000 },
+              { value: 0, duration: 1000 }
+            ],
+            translateY: [
+              { value: 0, duration: 1000 },
+              { value: 100, duration: 1000 },
+              { value: 0, duration: 1000 },
+              { value: -100, duration: 1000 }
+            ],
+            easing: 'linear',
+            loop: true
+          });
+        } else {
+          // Default animation if command not recognized
+          currentAnimation = anime({
+            targets: ball,
+            scale: [1, 1.2, 1],
+            opacity: [1, 0.8, 1],
+            easing: 'easeInOutSine',
+            duration: 1000,
+            loop: true
+          });
+          
+          statusEl.textContent = `Command not recognized. Try: bounce, spin, explode, color, shake, pulse, fade, move, zigzag, path`;
+        }
+      }
+      
+      // Handle submit button click
+      document.getElementById('submit-animation').addEventListener('click', () => {
+        const input = document.getElementById('animation-input');
+        const command = input.value.trim();
+        
+        if (command) {
+          animateBall(command);
+        }
+      });
+      
+      // Handle Enter key press in input
+      document.getElementById('animation-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          const command = e.target.value.trim();
+          
+          if (command) {
+            animateBall(command);
+          }
+        }
+      });
+      
+      // Handle example button clicks
+      document.querySelectorAll('.example-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          const command = button.getAttribute('data-animation');
+          document.getElementById('animation-input').value = command;
+          animateBall(command);
+        });
+      });
+      
+      // Initial animation
+      setTimeout(() => {
+        animateBall('pulse');
+      }, 2000);
+    });
+  </script>
+</body>
+</html> 
